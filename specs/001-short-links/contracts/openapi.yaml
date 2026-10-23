@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Pura Vida Links
+  version: 1.0.0
+  description: Tiny URL shortener for the GDG Pura Vida community (feature 001-short-links).
+paths:
+  /links:
+    post:
+      summary: Create a short link (FR-001, FR-006)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLink'
+      responses:
+        '201':
+          description: Link created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+        '409':
+          description: Alias already in use (FR-007)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Invalid URL or alias (FR-002, FR-008, FR-011)
+  /{code}:
+    get:
+      summary: Redirect to the original URL (FR-004)
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '307':
+          description: Redirect; `Location` header holds the original URL
+        '404':
+          description: Unknown code (FR-005)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /health:
+    get:
+      summary: Health check (FR-009)
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status:
+                    type: string
+                    const: ok
+components:
+  schemas:
+    CreateLink:
+      type: object
+      required: [url]
+      properties:
+        url:
+          type: string
+          maxLength: 2048
+          example: https://gdg.community.dev/gdg-pura-vida/
+        alias:
+          type: string
+          description: Case-insensitive; normalized to lowercase before the pattern is applied. Reserved - health, docs, links, openapi.json.
+          pattern: '^[a-z0-9][a-z0-9-]{2,31}$'
+          example: gdg-oct
+    Link:
+      type: object
+      required: [code, url, short_url, created_at]
+      properties:
+        code:
+          type: string
+          example: gdg-oct
+        url:
+          type: string
+        short_url:
+          type: string
+          example: http://localhost:8000/gdg-oct
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      required: [detail]
+      properties:
+        detail:
+          type: string
