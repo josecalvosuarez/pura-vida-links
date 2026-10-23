@@ -16,6 +16,7 @@ A tiny URL shortener built **spec-first** with [GitHub Spec Kit](https://github.
 | `step-5-tasks` | `/speckit.tasks` | `tasks.md` |
 | `step-6-analyze` | `/speckit.analyze` | `analysis.md` + remediation |
 | `step-7-implement` | `/speckit.implement` | `src/`, `tests/` — 44 tests green |
+| `solution-002-click-stats` | second feature, full loop | answer key for the live demo — 49 tests |
 
 ```bash
 git log --oneline --decorate          # see the whole story
