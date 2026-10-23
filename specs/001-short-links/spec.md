@@ -88,6 +88,7 @@ An organizer can request a memorable alias (e.g. `gdg-oct`) instead of a random 
 - **FR-008**: System MUST validate aliases: 3–32 characters of `a-z`, `0-9` and `-`, starting with a letter or digit, not a reserved path; aliases are normalized to lowercase.
 - **FR-011**: System MUST reject URLs longer than 2,048 characters.
 - **FR-012**: Random short codes MUST be 7 characters drawn from `[A-Za-z0-9]`.
+- **FR-013**: Lookup MUST try the exact code first and then its lowercase form, so random codes stay case-sensitive while aliases are case-insensitive.
 - **FR-009**: System MUST expose a health check for operators.
 - **FR-010**: Links MUST persist across service restarts.
 

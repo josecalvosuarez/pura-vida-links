@@ -26,7 +26,7 @@ description: "Task list for feature 001-short-links"
 ## Phase 2: Foundational (blocks all stories)
 
 - [ ] T004 [P] Unit tests for URL rules in `tests/unit/test_validation.py` (FR-002, FR-011)
-- [ ] T005 [P] Unit tests for code generator in `tests/unit/test_codes.py` (FR-003, FR-012, SC-004)
+- [ ] T005 [P] Unit tests for code generator in `tests/unit/test_codes.py` (FR-003, FR-012, SC-004 — 10,000 codes, zero duplicates)
 - [ ] T006 [P] Implement `src/links/validation.py` — `validate_url`, `normalize_alias`, `RESERVED`
 - [ ] T007 [P] Implement `src/links/codes.py` — `generate_code(length=7)`
 - [ ] T008 Implement `src/links/storage.py` — `LinkStore` with `init`, `insert`, `get` (FR-010)
@@ -57,6 +57,7 @@ description: "Task list for feature 001-short-links"
 
 - [ ] T015 [P] [US3] Integration tests for scenarios 3.1–3.3 + reserved words in `tests/integration/test_us3_alias.py`
 - [ ] T016 [US3] Add alias path to `POST /links`; map duplicate key → 409 (FR-006, FR-007, FR-008)
+- [ ] T020 [US3] Exact-then-lowercase lookup in `GET /{code}` + test `GDG-Oct` resolves (FR-013, analysis A1)
 
 ---
 
@@ -65,6 +66,7 @@ description: "Task list for feature 001-short-links"
 - [ ] T017 [P] Contract test: every path/method in `contracts/openapi.yaml` exists in the live app schema
 - [ ] T018 [P] Update `README.md` with run instructions from quickstart.md
 - [ ] T019 Run quickstart.md end-to-end
+- [ ] T021 [P] Latency smoke test p95 < 100 ms in `tests/integration/test_performance.py` (SC-003, analysis A2)
 
 ## Dependencies
 
