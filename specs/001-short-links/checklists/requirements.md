@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain → 2 open (expiry, alias rules) — run `/speckit.clarify`
+- [x] No [NEEDS CLARIFICATION] markers remain (resolved in Clarifications, session 2026-10-23)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic
@@ -26,5 +26,5 @@
 
 - [x] All functional requirements have clear acceptance criteria
 - [x] User scenarios cover primary flows
-- [ ] Feature meets measurable outcomes defined in Success Criteria (pending clarification)
+- [x] Feature meets measurable outcomes defined in Success Criteria
 - [x] No implementation details leak into specification

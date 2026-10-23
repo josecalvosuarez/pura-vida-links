@@ -4,9 +4,19 @@
 
 **Created**: 2026-10-23
 
-**Status**: Draft
+**Status**: Clarified
 
 **Input**: User description: "Build a tiny URL shortener for the GDG Pura Vida community. Organizers paste a long URL (a meetup page, slides, a form) and get a short link they can put on a slide or a QR code. Anyone who opens the short link is redirected to the original page. Organizers can optionally choose a memorable alias like `gdg-oct`."
+
+## Clarifications
+
+### Session 2026-10-23
+
+- Q: Should links expire, and if so after how long? → A: No automatic expiry in v1; links live until deleted by an operator.
+- Q: What characters and lengths are allowed in an alias? → A: 3–32 characters, lowercase letters, digits and hyphens; must start with a letter or digit.
+- Q: What is the maximum accepted URL length? → A: 2,048 characters.
+- Q: Which paths are reserved and can never be aliases? → A: `health`, `docs`, `links`, `openapi.json`.
+- Q: How long are random codes? → A: 7 characters from a URL-safe alphabet (letters and digits).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -59,10 +69,10 @@ An organizer can request a memorable alias (e.g. `gdg-oct`) instead of a random 
 
 ### Edge Cases
 
-- What happens when the submitted URL is extremely long?
-- What happens when an alias collides with a reserved path such as `health`?
-- How long does a short link stay valid? [NEEDS CLARIFICATION: should links expire, and if so after how long?]
-- Which characters and lengths are allowed in an alias? [NEEDS CLARIFICATION: alias character set and length limits not specified]
+- URLs longer than 2,048 characters are rejected with a validation error.
+- Aliases that match a reserved path (`health`, `docs`, `links`, `openapi.json`) are rejected with a validation error.
+- Links do not expire in v1.
+- Aliases are case-insensitive: `GDG-Oct` is stored and resolved as `gdg-oct`.
 
 ## Requirements *(mandatory)*
 
@@ -75,13 +85,15 @@ An organizer can request a memorable alias (e.g. `gdg-oct`) instead of a random 
 - **FR-005**: System MUST return a "not found" response for unknown codes.
 - **FR-006**: Users MUST be able to request a custom alias for a link.
 - **FR-007**: System MUST reject an alias that is already in use with a conflict error.
-- **FR-008**: System MUST validate aliases. [NEEDS CLARIFICATION: alias rules]
+- **FR-008**: System MUST validate aliases: 3–32 characters of `a-z`, `0-9` and `-`, starting with a letter or digit, not a reserved path; aliases are normalized to lowercase.
+- **FR-011**: System MUST reject URLs longer than 2,048 characters.
+- **FR-012**: Random short codes MUST be 7 characters drawn from `[A-Za-z0-9]`.
 - **FR-009**: System MUST expose a health check for operators.
 - **FR-010**: Links MUST persist across service restarts.
 
 ### Key Entities
 
-- **Link**: A mapping from a short code (random or alias) to an original URL, with a creation timestamp.
+- **Link**: A mapping from a short code (random or alias) to an original URL, with a creation timestamp. Links do not expire.
 
 ## Success Criteria *(mandatory)*
 
